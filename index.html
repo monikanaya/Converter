@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        Speak something brooo!
+    </h1>
+    <textarea id="output" rows="5" cols="50"></textarea><br>
+
+    <button id="start-btn">Start</button>
+    <button id="stop-btn">Stop</button>
+
+    <script>
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = true;
+        recognition.continuous = true;
+
+
+        document.getElementById("start-btn").onclick = () => recognition.start();
+        document.getElementById("stop-btn").onclick = () => recognition.stop();
+
+        recognition.onresult = event => {
+            output.value = event.results[event.results.length - 1][0].transcript;
+
+        }
+        navigator.mediaDevices.getUserMedia({
+            auto: true
+        });
+    </script>
+</body>
+
+</html>
